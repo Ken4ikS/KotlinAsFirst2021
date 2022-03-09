@@ -79,5 +79,5 @@ class Complex(val re: Double, val im: Double) {
     /**
      * Преобразование в строку
      */
-    override fun toString(): String = re.toString() + im.toString()
+    override fun toString(): String = TODO()
 }
