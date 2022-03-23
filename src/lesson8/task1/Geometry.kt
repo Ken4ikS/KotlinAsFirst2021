@@ -3,10 +3,7 @@
 package lesson8.task1
 
 import lesson1.task1.sqr
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import kotlin.math.*
 
 // Урок 8: простые классы
 // Максимальное количество баллов = 40 (без очень трудных задач = 11)
@@ -82,7 +79,15 @@ data class Circle(val center: Point, val radius: Double) {
      * расстояние между их центрами минус сумма их радиусов.
      * Расстояние между пересекающимися окружностями считать равным 0.0.
      */
-    fun distance(other: Circle): Double = TODO()
+    fun distance(other: Circle): Double {
+        val interval = center.distance(other.center)
+        return if (interval <= (radius + other.radius))
+            0.0
+        else {
+            interval - (radius + other.radius)
+        }
+    }
+
 
     /**
      * Тривиальная (1 балл)
@@ -90,6 +95,7 @@ data class Circle(val center: Point, val radius: Double) {
      * Вернуть true, если и только если окружность содержит данную точку НА себе или ВНУТРИ себя
      */
     fun contains(p: Point): Boolean = TODO()
+
 }
 
 /**
@@ -109,7 +115,28 @@ data class Segment(val begin: Point, val end: Point) {
  * Дано множество точек. Вернуть отрезок, соединяющий две наиболее удалённые из них.
  * Если в множестве менее двух точек, бросить IllegalArgumentException
  */
-fun diameter(vararg points: Point): Segment = TODO()
+fun diameter(vararg points: Point): Segment {
+    if (points.size < 2) throw IllegalArgumentException()
+    var maxx = 0.0
+    var dist: Double
+    var p1: Point = Point(0.0, 0.0)
+    var p2: Point = Point(0.0, 0.0)
+
+    for (n in points.indices) {
+        for (i in n + 1 until points.size) {
+            dist = points[n].distance(points[i])
+            if (dist > maxx) {
+                maxx = dist
+                p1 = points[n]
+                p2 = points[i]
+
+            }
+        }
+
+    }
+    return Segment(p1, p2)
+}
+
 
 /**
  * Простая (2 балла)
@@ -117,7 +144,12 @@ fun diameter(vararg points: Point): Segment = TODO()
  * Построить окружность по её диаметру, заданному двумя точками
  * Центр её должен находиться посередине между точками, а радиус составлять половину расстояния между ними
  */
-fun circleByDiameter(diameter: Segment): Circle = TODO()
+fun circleByDiameter(diameter: Segment): Circle =
+    Circle(
+        Point(((diameter.begin.x + diameter.end.x) / 2), ((diameter.begin.y + diameter.end.y) / 2)),
+        (diameter.begin.distance(diameter.end) / 2)
+    )
+
 
 /**
  * Прямая, заданная точкой point и углом наклона angle (в радианах) по отношению к оси X.
@@ -170,7 +202,13 @@ fun lineByPoints(a: Point, b: Point): Line = TODO()
  *
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
-fun bisectorByPoints(a: Point, b: Point): Line = TODO()
+fun bisectorByPoints(a: Point, b: Point): Line {
+//    val midpoint = Point(((a.x + b.x) / 2), (a.y + b.y) / 2) // midpoint x , y
+//    val slope = ((b.y - a.y)/(b.x - a.x)).pow(-1.0) // slope
+//    var offset = (slope * midpoint.x) - midpoint.y // b
+//    var res_y =
+    TODO()
+}
 
 /**
  * Средняя (3 балла)
@@ -195,7 +233,20 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> = TODO()
  * (построить окружность по трём точкам, или
  * построить окружность, описанную вокруг треугольника - эквивалентная задача).
  */
-fun circleByThreePoints(a: Point, b: Point, c: Point): Circle = TODO()
+fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
+    val z1 = a.x.pow(2.0) + a.y.pow(2.0)
+    val z2 = b.x.pow(2.0) + b.y.pow(2.0)
+    val z3 = c.x.pow(2.0) + c.y.pow(2.0)
+
+
+    val center_x = ((-1 / 2) * ((a.y * (z2 - (z3)) + b.y * (z3 - (z1)) + c.y * (z1 - (z2)))) /
+            (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y)))
+
+    val center_y = ((-1 / 2) * ((a.x * (z2 - (z3)) + b.x * (z3 - (z1)) + c.x * (z1 - (z2)))) /
+            (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y)))
+
+    return Circle(Point(center_x, center_y), Point(center_x, center_y).distance(a))
+}
 
 /**
  * Очень сложная (10 баллов)
