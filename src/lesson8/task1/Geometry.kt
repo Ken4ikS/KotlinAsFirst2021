@@ -3,6 +3,8 @@
 package lesson8.task1
 
 import lesson1.task1.sqr
+import lesson2.task2.pointInsideCircle
+import lesson4.task1.center
 import kotlin.math.*
 
 // Урок 8: простые классы
@@ -94,8 +96,7 @@ data class Circle(val center: Point, val radius: Double) {
      *
      * Вернуть true, если и только если окружность содержит данную точку НА себе или ВНУТРИ себя
      */
-    fun contains(p: Point): Boolean = TODO()
-
+    fun contains(p: Point): Boolean = p.distance(center) <= radius
 }
 
 /**
@@ -222,7 +223,23 @@ fun bisectorByPoints(a: Point, b: Point): Line {
  *
  * Если в списке менее двух окружностей, бросить IllegalArgumentException
  */
-fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> = TODO()
+fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> {
+    if (circles.size < 2) throw IllegalArgumentException()
+    var minn: Double = 99999.0
+    var couple_1 = Circle(Point(0.0, 0.0), 0.0)
+    var couple_2 = Circle(Point(0.0, 0.0), 0.0)
+    for (n in circles.indices) {
+        for (i in n + 1 until circles.size) {
+            val dist = (circles[n].distance(circles[i]))
+            if (dist < minn) {
+                minn = dist
+                couple_1 = circles[n]
+                couple_2 = circles[i]
+            }
+        }
+    }
+    return Pair(couple_1, couple_2)
+}
 
 /**
  * Сложная (5 баллов)
@@ -259,5 +276,33 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
  * три точки данного множества, либо иметь своим диаметром отрезок,
  * соединяющий две самые удалённые точки в данном множестве.
  */
-fun minContainingCircle(vararg points: Point): Circle = TODO()
+fun minContainingCircle(vararg points: Point): Circle {
+    if (points.isEmpty()) throw IllegalArgumentException()
+    if (points.size == 1) return Circle(Point(points[0].x, points[0].y), 0.0)
+    var minn = 99999.0
+    var res = Circle(Point(0.0, 0.0), 0.0)
+    var j = 0
+    for (n in points.indices) {
+        for (i in n + 1 until points.size) {
+            val midpoint = Point((points[n].x + points[i].x) / 2.0, (points[n].y + points[i].y) / 2.0)
+            val rad = (points[n].distance(midpoint))
+
+            if (rad <= minn) {   // проверка максимального диаметра
+                val maybe = Circle(Point(midpoint.x, midpoint.y), rad)
+                j = 0
+                for (k in points.indices) {  // проверка на содержание точек в окружности
+                    if (maybe.contains(points[k])) {
+                        j++
+                        if (points.size == j) {
+                            res = maybe
+                            minn = rad
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+    return res
+}
 
