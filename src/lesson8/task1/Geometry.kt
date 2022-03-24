@@ -239,11 +239,11 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
     val z3 = c.x.pow(2.0) + c.y.pow(2.0)
 
 
-    val center_x = ((-1 / 2) * ((a.y * (z2 - (z3)) + b.y * (z3 - (z1)) + c.y * (z1 - (z2)))) /
-            (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y)))
+    val center_x = ((-0.5) * ((a.y * (z2 - (z3)) + b.y * (z3 - (z1)) + c.y * (z1 - (z2))) /
+            (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y))))
 
-    val center_y = ((-1 / 2) * ((a.x * (z2 - (z3)) + b.x * (z3 - (z1)) + c.x * (z1 - (z2)))) /
-            (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y)))
+    val center_y = ((0.5) * ((a.x * (z2 - (z3)) + b.x * (z3 - (z1)) + c.x * (z1 - (z2))) /
+            (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y))))
 
     return Circle(Point(center_x, center_y), Point(center_x, center_y).distance(a))
 }
