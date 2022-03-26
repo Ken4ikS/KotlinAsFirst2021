@@ -145,8 +145,11 @@ fun bishopMoveNumber(start: Square, end: Square): Int {
         start.column == end.column && start.row == end.row -> 0
         abs(start.column - end.column) == abs(start.row - end.row) -> 1
         (start.column == end.column) && (start.row % 2 != 0 && end.row % 2 != 0 || start.row % 2 == 0 && end.row % 2 == 0) -> 2
-        (((start.column % 2 == 0 && start.row % 2 == 0) || (start.column % 2 != 0 && start.row % 2 != 0))) && (((end.column % 2 == 0 && end.row % 2 == 0) || (end.column % 2 != 0 && end.row % 2 != 0))) -> 2
-        (((start.column % 2 == 0 && start.row % 2 != 0) || (start.column % 2 != 0 && start.row % 2 == 0))) && (((end.column % 2 != 0 && end.row % 2 == 0) || (end.column % 2 == 0 && end.row % 2 != 0))) -> 2
+        ((start.column % 2 == 0 && start.row % 2 == 0) && (end.column % 2 != 0 && end.row % 2 != 0)) || ((start.column % 2 != 0 && start.row % 2 != 0) && (end.column % 2 == 0 && end.row % 2 == 0)) -> 2
+        // для черныйх клеток
+        ((start.column % 2 == 0 && start.row % 2 != 0) || (start.column % 2 != 0 && start.row % 2 == 0)) && ((end.column % 2 == 0 && end.row % 2 != 0) || (end.column % 2 != 0 && end.row % 2 == 0)) -> 2
+        // для белых
+
         else -> -1
 
     }
