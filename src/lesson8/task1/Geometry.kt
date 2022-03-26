@@ -276,33 +276,35 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
  * три точки данного множества, либо иметь своим диаметром отрезок,
  * соединяющий две самые удалённые точки в данном множестве.
  */
-fun minContainingCircle(vararg points: Point): Circle {
-    if (points.isEmpty()) throw IllegalArgumentException()
-    if (points.size == 1) return Circle(Point(points[0].x, points[0].y), 0.0)
-    var minn = 99999.0
-    var res = Circle(Point(0.0, 0.0), 0.0)
-    var j = 0
-    for (n in points.indices) {
-        for (i in n + 1 until points.size) {
-            val midpoint = Point((points[n].x + points[i].x) / 2.0, (points[n].y + points[i].y) / 2.0)
-            val rad = (points[n].distance(midpoint))
-
-            if (rad <= minn) {   // проверка максимального диаметра
-                val maybe = Circle(Point(midpoint.x, midpoint.y), rad)
-                j = 0
-                for (k in points.indices) {  // проверка на содержание точек в окружности
-                    if (maybe.contains(points[k])) {
-                        j++
-                        if (points.size == j) {
-                            res = maybe
-                            minn = rad
-                        }
-                    }
-                }
-
-            }
-        }
-    }
-    return res
-}
-
+fun minContainingCircle(vararg points: Point): Circle = TODO()
+//{
+//    if (points.isEmpty()) throw IllegalArgumentException()
+//    if (points.size == 1) return Circle(Point(points[0].x, points[0].y), 0.0)
+//    var minn = 0.0
+//    var max = 9999.0
+//    var res = Circle(Point(0.0, 0.0), 0.0)
+//    var j = 0
+//    for (n in points.indices) {
+//        for (i in n + 1 until points.size) {
+//            val midpoint = Point((points[n].x + points[i].x) / 2.0, (points[n].y + points[i].y) / 2.0) // середина диаметра
+//            val rad = (points[n].distance(midpoint)) // радиус
+//
+//            if (rad >= minn) {   // проверка минимального диаметра
+//                val maybe = Circle(Point(midpoint.x, midpoint.y), rad)
+//                j = 0
+//                for (k in points.indices) {  // проверка на содержание точек в окружности
+//                    if (maybe.contains(points[k])) {
+//                        j++
+//                        if (points.size == j) {
+//                            res = maybe
+//                            minn = rad
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
+//    }
+//    return res
+//}
+// тупик
