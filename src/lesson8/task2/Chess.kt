@@ -140,12 +140,14 @@ fun rookTrajectory(start: Square, end: Square): List<Square> {
  * Слон может пройти через клетку (6, 4) к клетке (3, 7).
  */
 fun bishopMoveNumber(start: Square, end: Square): Int {
-//    when {
-//        start.column == end.column && start.row == end.row -> return 0
-//        abs(start.column - end.column) == abs(start.row - end.row) || abs(start.column - end.column) == abs(end.row - start.row) -> return 1
-//        else -> return -1
-//    }
-    TODO()
+    return when {
+        start.column == end.column && start.row == end.row -> 0
+        abs(start.column - end.column) == abs(start.row - end.row) -> 1
+        (start.column == end.column) && (start.row % 2 != 0 && end.row % 2 != 0 || start.row % 2 == 0 && end.row % 2 == 0) -> 2
+        else -> -1
+
+    }
+
 }
 
 /**
@@ -166,7 +168,46 @@ fun bishopMoveNumber(start: Square, end: Square): Int {
  *          bishopTrajectory(Square(1, 3), Square(6, 8)) = listOf(Square(1, 3), Square(6, 8))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun bishopTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun bishopTrajectory(start: Square, end: Square): List<Square> {
+    val res: MutableList<Square> = mutableListOf(start)
+    when {
+        bishopMoveNumber(start, end) == -1 -> return listOf<Square>()
+        bishopMoveNumber(start, end) == 1 -> res.add(end)
+    }
+    if (bishopMoveNumber(start, end) == 2 && start.column == end.column) {
+        val y = (start.row + end.row) / 2
+        when {
+            (start.column >= 6 || start.column < 3) -> res.add(Square(start.column - 3, y))
+            (start.column < 6 || start.column > 3) -> res.add(Square(start.column + 3, y))
+        }
+        res.add(end)
+    }
+    if (bishopMoveNumber(start, end) == 2 && start.column != end.column) {
+        var x = start.column
+        var y = start.row
+
+        while (bishopMoveNumber(Square(x, y), end) != 1 && start.column < 7 && start.row < 7) {
+            x++
+            y++
+        }
+        while (bishopMoveNumber(Square(x, y), end) != 1 && start.column > 0 && start.row < 7) {
+            x--
+            y++
+        }
+        while (bishopMoveNumber(Square(x, y), end) != 1 && start.column < 7 && start.row > 0) {
+            x++
+            y--
+        }
+        while (bishopMoveNumber(Square(x, y), end) != 1 && start.column > 0 && start.row > 0) {
+            x--
+            y--
+        }
+
+        res.add(Square(x, y))
+        res.add(end)
+    }
+    return res
+}
 
 /**
  * Средняя (3 балла)
