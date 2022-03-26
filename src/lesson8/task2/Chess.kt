@@ -173,7 +173,7 @@ fun bishopMoveNumber(start: Square, end: Square): Int {
  */
 fun bishopTrajectory(start: Square, end: Square): List<Square> {
     val res: MutableList<Square> = mutableListOf(start)
-    if (!start.inside() || !end.inside()) throw IllegalArgumentException()
+    if (start.column < 1 || start.column > 8 || end.row < 1 || end.row > 8) throw IllegalArgumentException()
     when {
         bishopMoveNumber(start, end) == -1 -> return listOf<Square>()
         bishopMoveNumber(start, end) == 0 -> return res
