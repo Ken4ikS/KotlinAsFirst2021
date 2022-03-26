@@ -174,8 +174,10 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
     val res: MutableList<Square> = mutableListOf(start)
     when {
         bishopMoveNumber(start, end) == -1 -> return listOf<Square>()
+        bishopMoveNumber(start, end) == 0 -> return res
         bishopMoveNumber(start, end) == 1 -> res.add(end)
     }
+
     if (bishopMoveNumber(start, end) == 2 && start.column == end.column) {
         val y = (start.row + end.row) / 2
         when {
