@@ -253,17 +253,22 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
  * Король может последовательно пройти через клетки (4, 2) и (5, 2) к клетке (6, 3).
  */
 fun kingMoveNumber(start: Square, end: Square): Int {
+    var x = start.column
+    var y = start.row
+    var k = 0
     return when {
         !start.inside() || !end.inside() -> throw IllegalArgumentException()
         (start.column == end.column && start.row == end.row) -> 0
         start.column == end.column -> abs(start.row - end.row) // горизонталь
         start.row == end.row -> abs(start.column - end.column) // вертикаль
-        start.column != end.column && start.row != end.row -> abs(start.row - end.row)
         abs(start.column - end.column) == abs(start.row - end.row) -> abs(start.column - end.column) // диагональ
-        else -> throw IllegalArgumentException()
+        abs(start.column - end.column) + start.column == end.column -> (abs(start.column - end.column)) + abs((abs(start.column - end.column)) - (abs(start.row - end.row)))
+//        abs(start.column - end.column) + start.row == end.row -> abs(start.column - end.column) +
+        else -> 0
     }
 
 }
+
 
 /**
  * Сложная (5 баллов)
