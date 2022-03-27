@@ -2,7 +2,6 @@
 
 package lesson12.task1
 
-import ru.spbstu.kotlin.typeclass.classes.Monoid.Companion.plus
 
 /**
  * Класс "Телефонная книга".
@@ -83,11 +82,11 @@ class PhoneBook {
      * Вернуть все номера телефона заданного человека.
      * Если этого человека нет в книге, вернуть пустой список
      */
-    fun phones(name: String): Set<String> {
-        return if (name in book)
+    fun phones(name: String): Set<String> =
+        if (name in book)
             book[name]!!.toSet()
         else setOf()
-    }
+
 
     /**
      * Вернуть имя человека по заданному номеру телефона.

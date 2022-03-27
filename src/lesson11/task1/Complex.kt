@@ -59,12 +59,12 @@ class Complex(val re: Double, val im: Double) {
     /**
      * Деление
      */
-    operator fun div(other: Complex): Complex {
-        return Complex(
+    operator fun div(other: Complex): Complex =
+        Complex(
             (re * other.re + im * other.im) / (other.re.pow(2.0) + other.im.pow(2.0)),
             (im * other.re - re * other.im) / (other.re.pow(2.0) + (other.im.pow(2.0)))
         )
-    }
+
 
     /**
      * Сравнение на равенство

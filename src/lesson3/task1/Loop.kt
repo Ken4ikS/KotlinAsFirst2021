@@ -58,6 +58,7 @@ fun isPerfect(n: Int): Boolean {
  * Найти число вхождений цифры m в число n
  */
 fun digitCountInNumber(n: Int, m: Int): Int = TODO()
+
 /**
  * Простая (2 балла)
  *
@@ -69,12 +70,13 @@ fun digitCountInNumber(n: Int, m: Int): Int = TODO()
 fun digitNumber(n: Int): Int {
     var k = n
     var num = 1
-    while(k / 10 != 0) {
+    while (k / 10 != 0) {
         k /= 10
         num += 1
     }
     return num
 }
+
 /**
  * Простая (2 балла)
  *
@@ -85,13 +87,13 @@ fun fib(n: Int): Int {
     var num1 = 1
     var num2 = 1
     var numx = 0
-      for (i in 3..n) {
-       numx = num2
-       num2 += num1
-       num1 = numx
+    for (i in 3..n) {
+        numx = num2
+        num2 += num1
+        num1 = numx
 
-}
-return num2
+    }
+    return num2
 }
 
 
@@ -139,6 +141,7 @@ fun collatzSteps(x: Int): Int = TODO()
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int = TODO()
+
 /**
  * Средняя (3 балла)
  *
@@ -209,22 +212,21 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int) : Int {
-    var chisl =0
+fun squareSequenceDigit(n: Int): Int {
+    var chisl = 0
     var col = 0
     var sqr = 0
-    while(col < n){
-        chisl ++
+    while (col < n) {
+        chisl++
         sqr = chisl * chisl
         col += digitNumber(sqr)
     }
-    while(col > n){
+    while (col > n) {
         sqr /= 10
         col -= 1
     }
     return sqr % 10
 }
-
 
 
 /**
@@ -237,15 +239,15 @@ fun squareSequenceDigit(n: Int) : Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var chisl =0
+    var chisl = 0
     var col = 0
     var sqr = 0
-    while(col < n){
-        chisl ++
+    while (col < n) {
+        chisl++
         sqr = fib(chisl)
         col += digitNumber(sqr)
     }
-    while(col > n){
+    while (col > n) {
         sqr /= 10
         col -= 1
     }

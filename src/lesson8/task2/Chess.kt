@@ -263,7 +263,7 @@ fun kingMoveNumber(start: Square, end: Square): Int {
         start.row == end.row -> abs(start.column - end.column) // вертикаль
         abs(start.column - end.column) == abs(start.row - end.row) -> abs(start.column - end.column) // диагональ
         abs(start.column - end.column) + start.column == end.column -> (abs(start.column - end.column)) + abs((abs(start.column - end.column)) - (abs(start.row - end.row)))
-//        abs(start.column - end.column) + start.row == end.row -> abs(start.column - end.column) +
+        
         else -> 0
     }
 

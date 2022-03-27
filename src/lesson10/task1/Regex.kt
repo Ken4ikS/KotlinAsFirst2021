@@ -151,9 +151,7 @@ class Parser(private val groups: List<String>) {
      * Кроме написания этой функции, вам придётся вызвать её в одной или двух
      * предыдущих функциях парсера, и поддержать операцию POW внутри функции calculate.
      */
-    internal fun parseExponentiation(): Expression {
-        TODO()
-    }
+    internal fun parseExponentiation(): Expression = TODO()
 
     private val operationMap = mapOf("+" to PLUS, "-" to MINUS, "*" to TIMES, "/" to DIV, "^" to POW)
 }

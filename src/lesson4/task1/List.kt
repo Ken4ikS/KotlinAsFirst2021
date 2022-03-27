@@ -122,12 +122,12 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * Модуль пустого вектора считать равным 0.0.
  */
 fun abs(v: List<Double>): Double {
-    var otv = 0.0
-    for(i in 0 until v.size) {
-        otv += v[i].pow(2)
+    var result = 0.0
+    for (element in v) {
+        result += element.pow(2)
     }
-    return sqrt(otv)
-    }
+    return sqrt(result)
+}
 
 /**
  * Простая (2 балла)
@@ -135,9 +135,10 @@ fun abs(v: List<Double>): Double {
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    if(list.isEmpty()) return 0.0
-    else return list.sum()/list.size
+    return if (list.isEmpty()) 0.0
+    else list.sum() / list.size
 }
+
 /**
  * Средняя (3 балла)
  *
@@ -148,7 +149,7 @@ fun mean(list: List<Double>): Double {
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
     var sr = mean(list)
-    for(i in 0 until list.size)
+    for (i in 0 until list.size)
         list[i] -= sr
     return list
 }
@@ -161,8 +162,8 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
 fun times(a: List<Int>, b: List<Int>): Int {
-    var um : Int = 0
-    for(i in 0 until a.size)
+    var um: Int = 0
+    for (i in 0 until a.size)
         um += a[i] * b[i]
 
     return um
@@ -177,7 +178,7 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Значение пустого многочлена равно 0 при любом x.
  */
 fun polynom(p: List<Int>, x: Int): Int {
-    if( p.size == 0) return 0
+    if (p.size == 0) return 0
     else if (p.size == 1) return p[0]
     else {
         var sum: Int = p[0] + p[1] * x
@@ -200,7 +201,7 @@ fun polynom(p: List<Int>, x: Int): Int {
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
 
-    for(i in 1 until list.size)
+    for (i in 1 until list.size)
         list[i] += list[i - 1]
 
     return list
@@ -280,13 +281,13 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  */
 fun roman(n: Int): String {
     val rom = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
-    val lat = listOf(1000,900,500,400,100,90,50,40,10,9,5,4,1)
+    val lat = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
     var a = n
     var i = 0
     var res = ""
 
-    for(i in lat.indices){
-        while(a >= lat[i]){
+    for (i in lat.indices) {
+        while (a >= lat[i]) {
             res += rom[i]
             a -= lat[i]
         }
@@ -302,15 +303,46 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 
-    val digitsFirst = arrayOf("одна" , "две" , "три" , "четыре" , "пять" , "шесть" , "семь" , "восемь" , "девять" )
+val digitsFirst = arrayOf("одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
 
-    val digitsSecond = arrayOf("десять" , "двадцать" , "тридцать" , "сорок" , "пятьдесят" , "шестьдесят" , "семьдесят" , "восемьдесят" , "девяносто" )
+val digitsSecond = arrayOf(
+    "десять",
+    "двадцать",
+    "тридцать",
+    "сорок",
+    "пятьдесят",
+    "шестьдесят",
+    "семьдесят",
+    "восемьдесят",
+    "девяносто"
+)
 
-    val digitsThird = listOf("сто" , "двести" , "триста" , "четыреста" , "пятьсот" , "шестьсот" , "семьсот" , "восемьсот" , "девятьсот" )
+val digitsThird =
+    listOf("сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
 
-    val digitsFourth = arrayOf("один" , "два" , "три" , "четыре" , "пять" , "шесть" , "семь" , "восемь" , "девять" , "десять"
-        , "одиннадцать" , "двенадцать" , "тринадцать" , "четырнадцать" , "пятнадцать" , "шестнадцать" , "семнадцать" , "восемнадцать" , "девятнадцать" )
-fun formOfThousand(n: Int): String{
+val digitsFourth = arrayOf(
+    "один",
+    "два",
+    "три",
+    "четыре",
+    "пять",
+    "шесть",
+    "семь",
+    "восемь",
+    "девять",
+    "десять",
+    "одиннадцать",
+    "двенадцать",
+    "тринадцать",
+    "четырнадцать",
+    "пятнадцать",
+    "шестнадцать",
+    "семнадцать",
+    "восемнадцать",
+    "девятнадцать"
+)
+
+fun formOfThousand(n: Int): String {
     return when {
         n % 100 in 11..19 -> "тысяч"
         n % 10 in 2..4 -> "тысячи"
@@ -318,33 +350,33 @@ fun formOfThousand(n: Int): String{
         else -> "тысяч"
     }
 }
-fun threes(n: Int , thousand: Boolean) : List<String>{
+
+fun threes(n: Int, thousand: Boolean): List<String> {
     val result = mutableListOf<String>()
 
-    if(n / 100 != 0) result.add(digitsThird[n / 100 - 1])
+    if (n / 100 != 0) result.add(digitsThird[n / 100 - 1])
 
-    if(n % 100 in 1..19 && !thousand || n % 100 in 3 .. 19 && thousand){
+    if (n % 100 in 1..19 && !thousand || n % 100 in 3..19 && thousand) {
         result.add(digitsFourth[n % 100 - 1])
         return result
     }
-    if(n % 100 in 1..2 ){
-        result.add(digitsFirst[n % 100 - 1 ])
+    if (n % 100 in 1..2) {
+        result.add(digitsFirst[n % 100 - 1])
         return result
     }
-    if(n / 10 % 10 != 0 ) result.add(digitsSecond[n / 10 % 10 - 1])
-    if(n % 10 != 0 ){
-        if(thousand){
+    if (n / 10 % 10 != 0) result.add(digitsSecond[n / 10 % 10 - 1])
+    if (n % 10 != 0) {
+        if (thousand) {
             result.add(digitsFirst[n % 10 - 1])
-        }
-        else result.add(digitsFourth[n % 10 - 1])
+        } else result.add(digitsFourth[n % 10 - 1])
     }
     return result
 }
 
 fun russian(n: Int): String {
-    val firstThree = threes(n / 1000 , true).toMutableList()
+    val firstThree = threes(n / 1000, true).toMutableList()
     firstThree.add(formOfThousand(n / 1000))
-    val secondThree = threes(n % 1000 , false)
+    val secondThree = threes(n % 1000, false)
     return if (n > 1000) (firstThree + secondThree).joinToString(separator = " ")
     else secondThree.joinToString(separator = " ")
 
