@@ -140,8 +140,9 @@ fun rookTrajectory(start: Square, end: Square): List<Square> {
  * Слон может пройти через клетку (6, 4) к клетке (3, 7).
  */
 fun bishopMoveNumber(start: Square, end: Square): Int {
+    if (!start.inside() || !end.inside()) throw IllegalArgumentException()
     return when {
-        !start.inside() || !end.inside() -> throw IllegalArgumentException()
+
         start.column == end.column && start.row == end.row -> 0
         abs(start.column - end.column) == abs(start.row - end.row) -> 1
 
